@@ -82,26 +82,73 @@ def task4():
     df.columns.set_levels(df.columns.levels[1].map(
         lambda x: get_roman_num_quarter_regex.findall(x)[0]), level=1, inplace=True)
 
-    # print series
-    print(f'{gc}Series output: \n{wc}{df.iloc[0]}')
+    series = pd.Series([i for i in range(1, 4)])
 
-    # return series with index
-    print(f'\n{gc}Series with index output: \n{wc}{df.iloc[0][2015]}')
+    # print series
+    print(f'{gc}Series output: \n{wc}{series}')
+
 
     # series statistics
-    print(f'\n{gc}Series statistics output: \n{wc}{df.iloc[0].describe()}')
+    print(f'\n{gc}Series statistics output: \n{wc}{series.describe()}')
+    
+    # series mean
+    print(f'\n{gc}Series mean output: \n{wc}{series.mean()}')
+
+    # create series without index
+    series = pd.Series([i for i in range(1, 4)])
+    print(f'\n{gc}Series without index output: \n{wc}{series}')
+
+     # reference series index
+    print(f'\n{gc}Series index output: \n{wc}{series[0]}')
+
+    # series with index
+    series = pd.Series([i for i in range(1, 4)], index=[f'index {i}' for i in range(1, 4)])
+    print(f'\n{gc}Series with index output: \n{wc}{series}')
+
+    # series with index but as map
+    series = pd.Series({f'index {i}': i for i in range(1, 4)})
+    print(f'\n{gc}Series with index as map output: \n{wc}{series}')
+
+    # reference series index
+    print(f'\n{gc}Series index output: \n{wc}{series["index 1"]}')
+
+    
+    # series with multiindex
+    series = pd.Series(
+        [i for i in range(1, 4)],
+        index=pd.MultiIndex.from_tuples(
+            [(f'index {i}', f'index {i}') for i in range(1, 4)]
+        )
+    )
+    print(f'\n{gc}Series with multiindex output: \n{wc}{series}')
 
     # series dtype
-    print(f'\n{gc}Series dtype output: \n{wc}{df.iloc[0].dtype}')
+    print(f'\n{gc}Series dtype output: \n{wc}{series.dtype}')
+
+    # series values
+    print(f'\n{gc}Series values output: \n{wc}{series.values}')
+
+    # series with strings
+    series = pd.Series(['asda', 'bfsa', 'cfsaf', 'dfafs', 'edad'])
+
+    # series where string contains b
+    print(f'\n{gc}Series where string contains b output: \n{wc}{series.str.contains("b")}')
+
+    # series where all words are uppercase
+    print(f'\n{gc}Series where all words are uppercase output: \n{wc}{series.str.upper()}')
 
     # --dataframe section--
 
     # change dataframe index
+    print(f'\n{gc}Original dataframe index output: \n{wc}{df.iloc[:, :8]}')
     df.index = [f'Changed index {i + 1}' for i in range(len(df.index))]
     print(f'\n{gc}Changed dataframe index output: \n{wc}{df.iloc[:, :8]}')
 
     # reference column
     print(f'\n{gc}Reference column output: \n{wc}{df[2015]}')
+
+    # reference multiindex column
+    print(f'\n{gc}Reference multiindex column output: \n{wc}{df[2015, "I"]}')
 
     # single loc/iloc
     print(f'\n{gc}Single loc output: \n{wc}{df.loc["Changed index 1"]}')
@@ -245,16 +292,16 @@ def task11():
 
 def main():
     # task2()
-    # task3()
+    #  task3()
     # task3_2()
-    # task4()
+    task4()
     # task5()
     # task6()
     # task7()
     # task8()
     # task9()
     # task10()
-    task11()
+    # task11()
 
 
 if __name__ == '__main__':
