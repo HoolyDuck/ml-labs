@@ -15,7 +15,8 @@ class HistBuilder():
         plot_number = self.__plot_number(plot_number)
         self.ax[plot_number].hist(
             x=values,
-            bins=10,
+            bins=32,
+            edgecolor='black'
         )
         self.ax[plot_number].set_title(title)
 
