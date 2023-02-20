@@ -206,13 +206,19 @@ def task4():
     print(
         f'\n{gc}Dataframe sort by index descending output: \n{wc}{df.iloc[1:, :8].sort_index(ascending=False)}')
 
+    # sort by columns 
+    print(
+        f'\n{gc}Dataframe sort by columns output: \n{wc}{df.iloc[1:, :8].sort_index(axis=1, ascending=False)}')
+
     # sort by values
     print(
         f'\n{gc}Dataframe sort by values output: \n{wc}{df.iloc[1, :8].sort_values(ascending=False)}')
 
+    
+
     # sort and edit df
     df.sort_values(by=(2015, 'I'), inplace=True)
-    print(f'\n{gc}Dataframe sort and edit output: \n{wc}{df.iloc[1:, :8]}')
+    print(f'\n{gc}Dataframe sort and edit output: \n{wc}{df.iloc[:, :8]}')
 
     print(df)
 
@@ -228,9 +234,6 @@ def task5():
         df.iloc[i] = df.iloc[i].fillna(df.iloc[i].mean())
 
     print(df[2023])
-
-    df[2023].hist(figsize=(10, 10))
-    plt.show()
 
 
 def task6():
@@ -269,9 +272,22 @@ def task10():
     print(f'{gc}Max age passenger: \n{wc}{titanic_df[titanic_df["age"] == max_age]}')
     print(f'{gc}Average age: \n{wc}{titanic_df["age"].mean()}')
 
-    female_1st_class = titanic_df[(titanic_df["sex"] == "female") & (titanic_df["class"] == "1st")].sort_index()
+    survived = titanic_df[titanic_df["survived"] == "yes"]
+    print(f'{gc}Survived: \n{wc}{survived}')
+    print(
+        f'{gc}Survived age statistics: \n{wc}{survived.describe()}')
+    print(
+        f'{gc}Survived count: \n{wc}{survived.count()}')
+    #survived males count
+    print(
+        f'{gc}Survived males count: \n{wc}{survived[survived["sex"] == "male"]["sex"].count()}')
+        
+
+    female_1st_class = titanic_df[(titanic_df["sex"] == "female") & (titanic_df["class"] == "1st")].sort_values(by="name")
     print(
         f'{gc}Female 1st class: \n{wc}{female_1st_class}')
+
+
     
     min_age_female = female_1st_class["age"].min();
     print(f'{gc}Min age female: \n{wc}{female_1st_class[female_1st_class["age"] == min_age_female]}')
@@ -292,16 +308,16 @@ def task11():
 
 def main():
     # task2()
-    #  task3()
+    # task3()
     # task3_2()
-    task4()
+    # task4()
     # task5()
     # task6()
     # task7()
     # task8()
     # task9()
     # task10()
-    # task11()
+    task11()
 
 
 if __name__ == '__main__':
